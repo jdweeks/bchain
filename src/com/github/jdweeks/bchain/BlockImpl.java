@@ -1,5 +1,6 @@
 package com.github.jdweeks.bchain;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
@@ -7,8 +8,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class BlockImpl implements Block {
 
-	public byte[] hash;
-	public byte[] prevHash;
+	private byte[] hash;
+	private byte[] prevHash;
 	private byte[] data;
 	private long   timeStamp;
 	
@@ -19,6 +20,17 @@ public class BlockImpl implements Block {
 		this.hash = calcHash(this.timeStamp, this.prevHash, this.data);
 	}
 	
+	@Override
+	public byte[] getPrevHash() {
+		return this.prevHash;
+	}
+	
+	@Override
+	public byte[] getHash() {
+		return this.hash;
+	}
+	
+	@Override
 	public byte[] calcHash(long timeStamp, byte[] prevHash, byte[] data) {
 		MessageDigest md;
 		ByteBuffer bb;
@@ -41,4 +53,11 @@ public class BlockImpl implements Block {
 		
 		return hash;
 	}
+
+	@Override
+	public String toString() {
+		return "BlockImpl [hash=" + Arrays.toString(hash) + ", prevHash=" + Arrays.toString(prevHash) + ", data="
+				+ Arrays.toString(data) + ", timeStamp=" + timeStamp + "]";
+	}
+	
 }
